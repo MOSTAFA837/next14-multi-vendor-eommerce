@@ -48,7 +48,6 @@ export async function POST(req: Request) {
       status: 400,
     });
   }
-  console.log({ evt });
 
   // When user is created or updated
   if (evt.type === "user.created" || evt.type === "user.updated") {

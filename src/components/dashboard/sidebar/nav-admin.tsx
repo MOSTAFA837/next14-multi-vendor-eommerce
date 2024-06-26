@@ -1,21 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+import { usePathname, useRouter } from "next/navigation";
 
 import { DashboardSidebarMenuInterface } from "@/lib/types";
 
 import { icons } from "@/constants/icons";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export default function SidebarNavAdmin({
   menuLinks,
@@ -23,41 +14,35 @@ export default function SidebarNavAdmin({
   menuLinks: DashboardSidebarMenuInterface[];
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const onClick = (href: string) => {
+    router.push(href);
+  };
   return (
-    <nav className="relative grow">
-      <Command className="rounded-lg overflow-visible ">
-        <CommandInput placeholder="Search..." />
-        <CommandList className="py-2 overflow-visible">
-          <CommandEmpty>No Links Found.</CommandEmpty>
-          <CommandGroup className="overflow-visible pt-0 relative">
-            {menuLinks.map((link, index) => {
-              let icon;
-              const iconSearch = icons.find((icon) => icon.value === link.icon);
-              if (iconSearch) icon = <iconSearch.path />;
-              return (
-                <CommandItem
-                  key={index}
-                  className={cn(
-                    "w-full h-12 cursor-pointer mt-1 text-gray-500",
-                    {
-                      "bg-gray-300 text-accent-foreground":
-                        link.link === pathname,
-                    }
-                  )}
-                >
-                  <Link
-                    href={link.link}
-                    className="flex items-center gap-2  rounded-md transition-all w-full"
-                  >
-                    {icon}
-                    <span>{link.label}</span>
-                  </Link>
-                </CommandItem>
-              );
-            })}
-          </CommandGroup>
-        </CommandList>
-      </Command>
+    <nav className="relative grow mt-4">
+      {menuLinks.map((link, index) => {
+        let icon;
+        const iconSearch = icons.find((icon) => icon.value === link.icon);
+        if (iconSearch) icon = <iconSearch.path />;
+
+        return (
+          <Button
+            key={index}
+            size="sm"
+            onClick={() => onClick(link.link)}
+            className={cn(
+              "w-full font-normal justify-start gap-3 py-8 mb-1 hover:bg-gray-300 hover:text-sky-700 dark:hover:bg-[#1e293b]",
+              pathname === link.link &&
+                "bg-gray-300 text-sky-700 dark:bg-[#1e293b] dark:text-white"
+            )}
+            variant="ghost"
+          >
+            {icon}
+            {link.label}
+          </Button>
+        );
+      })}
     </nav>
   );
 }

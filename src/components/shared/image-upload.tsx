@@ -1,10 +1,8 @@
 "use client";
 
-// React, Next.js
 import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 
-// Cloudinary
 import { CldUploadWidget } from "next-cloudinary";
 
 interface ImageUploadProps {
@@ -35,20 +33,19 @@ const ImageUpload: FC<ImageUploadProps> = ({
   }
 
   const onUpload = (result: any) => {
-    console.log("result", result);
     onChange(result.info.secure_url);
   };
 
   if (type === "profile") {
     return (
-      <div className="relative rounded-full w-52 h-52  bg-gray-200 border-2 border-white shadow-2xl overflow-visible">
+      <div className="relative  rounded-md w-60 h-52 z-50  bg-gray-200 dark:bg-gray-800 border-2 border-white dark:border-black shadow-2xl overflow-visible">
         {value.length > 0 && (
           <Image
             src={value[0]}
             alt=""
             width={300}
             height={300}
-            className="w-52 h-52 rounded-full object-cover absolute top-0 left-0 bottom-0 right-0"
+            className="w-60 h-52 p-2 rounded-md object-cover absolute top-0 left-0 bottom-0 right-0"
           />
         )}
         <CldUploadWidget onSuccess={onUpload} uploadPreset="fdxw7p0d">
@@ -61,7 +58,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
               <>
                 <button
                   type="button"
-                  className="z-20 absolute right-0 bottom-6 flex items-center font-medium text-[17px] h-14 w-14 justify-center  text-white bg-gradient-to-t from-blue-primary to-blue-300 border-none shadow-lg rounded-full hover:shadow-md active:shadow-sm"
+                  className="z-50 absolute -right-4 -bottom-4 flex items-center font-medium text-[17px] h-14 w-14 justify-center  text-white  bgGradient border-none shadow-lg rounded-full hover:shadow-md active:shadow-sm"
                   disabled={disabled}
                   onClick={onClick}
                 >

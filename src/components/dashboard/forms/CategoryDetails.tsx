@@ -1,20 +1,16 @@
 "use client";
 
-// React
 import { FC, useEffect } from "react";
-
-// Prisma model
-import { Category } from "@prisma/client";
-
-// Form handling utilities
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { v4 } from "uuid";
+import { useRouter } from "next/navigation";
 
-// Schema
+import { Category } from "@prisma/client";
+
 import { CategoryFormSchema } from "@/lib/schemas";
 
-// UI Components
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import {
   Card,
@@ -35,31 +31,24 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
-// Queries
 import { upsertCategory } from "@/queries/category";
 
-// Utils
-import { v4 } from "uuid";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 import ImageUpload from "@/components/shared/image-upload";
 
 interface CategoryDetailsProps {
-  data?: Category;
+  data?: Category | null;
 }
 
 const CategoryDetails: FC<CategoryDetailsProps> = ({ data }) => {
-  // Initializing necessary hooks
-  const { toast } = useToast(); // Hook for displaying toast messages
-  const router = useRouter(); // Hook for routing
+  const { toast } = useToast();
+  const router = useRouter();
 
-  // Form hook for managing form state and validation
   const form = useForm<z.infer<typeof CategoryFormSchema>>({
-    mode: "onChange", // Form validation mode
-    resolver: zodResolver(CategoryFormSchema), // Resolver for form validation
+    mode: "onChange",
+    resolver: zodResolver(CategoryFormSchema),
     defaultValues: {
-      // Setting default form values from data (if available)
       name: data?.name,
       image: data?.image ? [{ url: data?.image }] : [],
       url: data?.url,
@@ -67,10 +56,8 @@ const CategoryDetails: FC<CategoryDetailsProps> = ({ data }) => {
     },
   });
 
-  // Loading status based on form submission
   const isLoading = form.formState.isSubmitting;
 
-  // Reset form values when data changes
   useEffect(() => {
     if (data) {
       form.reset({
@@ -82,10 +69,8 @@ const CategoryDetails: FC<CategoryDetailsProps> = ({ data }) => {
     }
   }, [data, form]);
 
-  // Submit handler for form submission
   const handleSubmit = async (values: z.infer<typeof CategoryFormSchema>) => {
     try {
-      // Upserting category data
       const response = await upsertCategory({
         id: data?.id ? data.id : v4(),
         name: values.name,
@@ -96,22 +81,18 @@ const CategoryDetails: FC<CategoryDetailsProps> = ({ data }) => {
         updatedAt: new Date(),
       });
 
-      // Displaying success message
       toast({
         title: data?.id
           ? "Category has been updated."
           : `Congratulations! '${response?.name}' is now created.`,
       });
 
-      // Redirect or Refresh data
       if (data?.id) {
         router.refresh();
       } else {
         router.push("/dashboard/admin/categories");
       }
     } catch (error: any) {
-      // Handling form submission errors
-      console.log(error);
       toast({
         variant: "destructive",
         title: "Oops!",
@@ -131,6 +112,7 @@ const CategoryDetails: FC<CategoryDetailsProps> = ({ data }) => {
               : " Lets create a category. You can edit category later from the categories table or the category page."}
           </CardDescription>
         </CardHeader>
+
         <CardContent>
           <Form {...form}>
             <form
@@ -210,7 +192,7 @@ const CategoryDetails: FC<CategoryDetailsProps> = ({ data }) => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading} className="bgGradient">
                 {isLoading
                   ? "loading..."
                   : data?.id

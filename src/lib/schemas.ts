@@ -45,10 +45,10 @@ export const SubCategoryFormSchema = z.object({
       message:
         "Only letters, numbers, and spaces are allowed in the subCategory name.",
     }),
-  image: z
-    .object({ url: z.string() })
-    .array()
-    .length(1, "Choose only one subCategory image"),
+  // image: z
+  //   .object({ url: z.string() })
+  //   .array()
+  //   .length(1, "Choose only one subCategory image"),
   url: z
     .string({
       required_error: "SubCategory url is required",
@@ -61,5 +61,37 @@ export const SubCategoryFormSchema = z.object({
         "Only letters, numbers, hyphen, and underscore are allowed in the subCategory url, and consecutive occurrences of hyphens, underscores, or spaces are not permitted.",
     }),
   categoryId: z.string().uuid(),
+  featured: z.boolean().default(false),
+});
+
+export const BrandFormSchema = z.object({
+  name: z
+    .string({
+      required_error: "brand name is required.",
+      invalid_type_error: "brand nale must be a string.",
+    })
+    .min(2, { message: "brand name must be at least 2 characters long." })
+    .max(50, { message: "brand name cannot exceed 50 characters." })
+    .regex(/^[a-zA-Z0-9\s]+$/, {
+      message:
+        "Only letters, numbers, and spaces are allowed in the brand name.",
+    }),
+  image: z
+    .object({
+      url: z.string(),
+    })
+    .array()
+    .length(1, "Choose a brand image."),
+  url: z
+    .string({
+      required_error: "brand url is required",
+      invalid_type_error: "brand url must be a string",
+    })
+    .min(2, { message: "brand url must be at least 2 characters long." })
+    .max(50, { message: "brand url cannot exceed 50 characters." })
+    .regex(/^(?!.*(?:[-_ ]){2,})[a-zA-Z0-9_-]+$/, {
+      message:
+        "Only letters, numbers, hyphen, and underscore are allowed in the brand url, and consecutive occurrences of hyphens, underscores, or spaces are not permitted.",
+    }),
   featured: z.boolean().default(false),
 });

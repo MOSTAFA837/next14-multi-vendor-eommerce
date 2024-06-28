@@ -29,7 +29,7 @@ model User {
 model Category {
   id String @id @default(uuid())
   name String 
-  image String 
+  image String
   url String 
   featured Boolean @default(false) 
   subCategories SubCategory[] @relation("CategoryToSubcategory")
@@ -41,7 +41,6 @@ model Category {
 model SubCategory {
   id String @id @default(uuid())
   name String 
-  image String 
   url String 
   featured Boolean @default(false) 
 
@@ -52,4 +51,15 @@ model SubCategory {
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
+}
+
+model Brand {
+  id String @id @default(uuid())
+  name String 
+  image String
+  url String 
+  featured Boolean @default(false) 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

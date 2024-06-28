@@ -7,6 +7,7 @@ import { DashboardSidebarMenuInterface } from "@/lib/types";
 import { icons } from "@/constants/icons";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function SidebarNavAdmin({
   menuLinks,
@@ -32,14 +33,21 @@ export default function SidebarNavAdmin({
             size="sm"
             onClick={() => onClick(link.link)}
             className={cn(
-              "w-full font-normal justify-start gap-3 py-8 mb-1 hover:bg-gray-300 hover:text-sky-700 dark:hover:bg-[#1e293b]",
+              "w-full font-normal justify-start gap-3 dark:text-gray-300 py-8 mb-1 hover:bg-gray-300 hover:text-white dark:hover:bg-[#1e293b]",
               pathname === link.link &&
-                "bg-gray-300 text-sky-700 dark:bg-[#1e293b] dark:text-white"
+                "bgGradient dark:bg-[#1e293b] text-white"
             )}
             variant="ghost"
           >
-            {icon}
-            {link.label}
+            <Image
+              src={link.icon}
+              width={35}
+              height={35}
+              alt=""
+              className={cn("dark:invert", pathname === link.link && "invert")}
+            />
+
+            <span className=" font-bold text-lg">{link.label}</span>
           </Button>
         );
       })}

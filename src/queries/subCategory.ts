@@ -1,20 +1,9 @@
 "use server";
 
-// Clerk
 import { currentUser } from "@clerk/nextjs/server";
-
-// DB
 import { db } from "@/lib/db";
+import { SubCategory } from "@prisma/client";
 
-// Prisma model
-import { Category, SubCategory } from "@prisma/client";
-
-// Function: upsertSubCategory
-// Description: Upserts a subCategory into the database, updating if it exists or creating a new one if not.
-// Permission Level: Admin only
-// Parameters:
-//   - SubCategory: subCategory object containing details of the subCategory to be upserted.
-// Returns: Updated or newly created subCategory details.
 export const upsertSubCategory = async (subCategory: SubCategory) => {
   try {
     // Get current user
@@ -75,12 +64,7 @@ export const upsertSubCategory = async (subCategory: SubCategory) => {
   }
 };
 
-// Function: getAllSubCategories
-// Description: Retrieves all subCategories from the database.
-// Permission Level: Public
-// Returns: Array of categories sorted by updatedAt date in descending order.
 export const getAllSubCategories = async () => {
-  // Retrieve all subCategories from the database
   const subCategories = await db.subCategory.findMany({
     include: {
       category: true,
@@ -92,12 +76,6 @@ export const getAllSubCategories = async () => {
   return subCategories;
 };
 
-// Function: getSubCategory
-// Description: Retrieves a specific SubCategory from the database.
-// Access Level: Public
-// Parameters:
-//   - SubCategoryId: The ID of the SubCategory to be retrieved.
-// Returns: Details of the requested SubCategory.
 export const getSubCategory = async (subCategoryId: string) => {
   // Ensure subCategory ID is provided
   if (!subCategoryId) throw new Error("Please provide suCategory ID.");
@@ -111,12 +89,6 @@ export const getSubCategory = async (subCategoryId: string) => {
   return subCategory;
 };
 
-// Function: deleteSubCategory
-// Description: Deletes a SubCategory from the database.
-// Permission Level: Admin only
-// Parameters:
-//   - SubCategoryId: The ID of the SubCategory to be deleted.
-// Returns: Response indicating success or failure of the deletion operation.
 export const deleteSubCategory = async (subCategoryId: string) => {
   // Get current user
   const user = await currentUser();

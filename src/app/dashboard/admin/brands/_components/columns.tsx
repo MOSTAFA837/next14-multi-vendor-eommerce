@@ -1,30 +1,30 @@
 "use client";
 
+import { Brand } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { BadgeCheck, BadgeMinus } from "lucide-react";
 import Image from "next/image";
 
 import CellActions from "./cell-actions";
-import { SubCategoryWithCategoryType } from "@/lib/types";
 
-export const columns: ColumnDef<SubCategoryWithCategoryType>[] = [
-  // {
-  //   accessorKey: "image",
-  //   header: "Image",
-  //   cell: ({ row }) => {
-  //     return (
-  //       <div className="relative h-fit overflow-hidden ">
-  //         <Image
-  //           src={row.original.image}
-  //           alt="image"
-  //           width={100}
-  //           height={100}
-  //           className="w-30 h-20 object-contain px-2 rounded-md shadow-2xl dark:bg-gray-400"
-  //         />
-  //       </div>
-  //     );
-  //   },
-  // },
+export const columns: ColumnDef<Brand>[] = [
+  {
+    accessorKey: "image",
+    header: "Image",
+    cell: ({ row }) => {
+      return (
+        <div className="relative h-fit overflow-hidden ">
+          <Image
+            src={row.original.image}
+            alt="image"
+            width={100}
+            height={100}
+            className="w-30 h-20 object-contain px-2 rounded-md shadow-2xl dark:bg-gray-400"
+          />
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "name",
     header: "Name",
@@ -41,13 +41,6 @@ export const columns: ColumnDef<SubCategoryWithCategoryType>[] = [
     header: "URL",
     cell: ({ row }) => {
       return <span>/{row.original.url}</span>;
-    },
-  },
-  {
-    accessorKey: "category",
-    header: "Category",
-    cell: ({ row }) => {
-      return <span>{row.original.category.name}</span>;
     },
   },
   {

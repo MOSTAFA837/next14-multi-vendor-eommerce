@@ -39,3 +39,41 @@ export const adminDashboardSidebarOptions: DashboardSidebarMenuInterface[] = [
     link: "/dashboard/admin/coupons",
   },
 ];
+
+export const SellerDashboardSidebarOptions: DashboardSidebarMenuInterface[] = [
+  {
+    label: "Dashboard",
+    icon: "/assets/icons/dashboard.svg",
+    link: "/dashboard/seller",
+  },
+  {
+    label: "Products",
+    icon: "/assets/icons/products.svg",
+    link: "/dashboard/seller/stores/products",
+  },
+  {
+    label: "Orders",
+    icon: "/assets/icons/order.svg",
+    link: "/dashboard/seller/stores/orders",
+  },
+  {
+    label: "Inventory",
+    icon: "/assets/icons/inventory.svg",
+    link: "/dashboard/seller/stores/inventory",
+  },
+  {
+    label: "Coupons",
+    icon: "/assets/icons/coupon.svg",
+    link: "/dashboard/seller/stores/coupons",
+  },
+  {
+    label: "Shipping",
+    icon: "/assets/icons/shipping.svg",
+    link: "/dashboard/seller/stores/shipping",
+  },
+  {
+    label: "Settings",
+    icon: "/assets/icons/settings.svg",
+    link: "/dashboard/seller/stores/settings",
+  },
+];

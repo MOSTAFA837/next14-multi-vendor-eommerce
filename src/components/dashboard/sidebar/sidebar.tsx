@@ -1,14 +1,24 @@
 import { currentUser } from "@clerk/nextjs/server";
-import { adminDashboardSidebarOptions } from "@/constants/data";
+import {
+  SellerDashboardSidebarOptions,
+  adminDashboardSidebarOptions,
+} from "@/constants/data";
 import SidebarNavAdmin from "./nav-admin";
 import { cn } from "@/lib/utils";
+import SidebarNavSeller from "./nav-seller";
+import { Store } from "@prisma/client";
 
 interface SidebarProps {
   isAdmin?: boolean;
   isMobile?: boolean;
+  stores?: Store[];
 }
 
-export default async function Sidebar({ isAdmin, isMobile }: SidebarProps) {
+export default async function Sidebar({
+  isAdmin,
+  isMobile,
+  stores,
+}: SidebarProps) {
   const user = await currentUser();
 
   return (
@@ -26,7 +36,11 @@ export default async function Sidebar({ isAdmin, isMobile }: SidebarProps) {
       <span className="mt-3" />
 
       {/* {user && <UserInfo user={user} />} */}
-      {isAdmin && <SidebarNavAdmin menuLinks={adminDashboardSidebarOptions} />}
+      {isAdmin ? (
+        <SidebarNavAdmin menuLinks={adminDashboardSidebarOptions} />
+      ) : (
+        <SidebarNavSeller menuLinks={SellerDashboardSidebarOptions} />
+      )}
     </div>
   );
 }

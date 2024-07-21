@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
@@ -72,6 +72,13 @@ function ProductDetails({ categories, storeUrl, data }: Props) {
     console.log(values);
   };
 
+  // Whenever colors, sizes, keywords changes we update the form values
+  useEffect(() => {
+    form.setValue("colors", colors);
+    // form.setValue("sizes", sizes);
+    // form.setValue("keywords", keywords);
+  }, [colors, form]);
+
   return (
     <AlertDialog>
       <Card className="w-full">
@@ -139,6 +146,8 @@ function ProductDetails({ categories, storeUrl, data }: Props) {
                   )}
                 />
               </div>
+
+              <button type="submit">submit</button>
             </form>
           </Form>
         </CardContent>

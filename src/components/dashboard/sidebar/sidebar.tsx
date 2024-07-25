@@ -7,6 +7,7 @@ import SidebarNavAdmin from "./nav-admin";
 import { cn } from "@/lib/utils";
 import SidebarNavSeller from "./nav-seller";
 import { Store } from "@prisma/client";
+import StoreSwitcher from "./store-switcher";
 
 interface SidebarProps {
   isAdmin?: boolean;
@@ -34,6 +35,8 @@ export default async function Sidebar({
       </h1>
 
       <span className="mt-3" />
+
+      {!isAdmin && stores && <StoreSwitcher stores={stores} />}
 
       {/* {user && <UserInfo user={user} />} */}
       {isAdmin ? (

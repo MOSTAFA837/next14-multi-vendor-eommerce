@@ -158,11 +158,11 @@ export const ProductFormSchema = z.object({
       invalid_type_error: "Product name must be a valid string",
     })
     .min(2, { message: "Product name should be at least 2 characters long." })
-    .max(200, { message: "Product name cannot exceed 200 characters." })
-    .regex(/^(?!.*(?:[-_ ]){2,})[a-zA-Z0-9_ -]+$/, {
-      message:
-        "Product name may only contain letters, numbers, spaces, hyphens, and underscores, without consecutive special characters.",
-    }),
+    .max(200, { message: "Product name cannot exceed 200 characters." }),
+  // .regex(/^(?!.*(?:[-_ ]){2,})[a-zA-Z0-9_ -]+$/, {
+  //   message:
+  //     "Product name may only contain letters, numbers, spaces, hyphens, and underscores, without consecutive special characters.",
+  // })
   description: z
     .string({
       required_error: "Product description is mandatory.",
@@ -180,11 +180,13 @@ export const ProductFormSchema = z.object({
     .min(2, {
       message: "Product variant name should be at least 2 characters long.",
     })
-    .max(100, { message: "Product variant name cannot exceed 100 characters." })
-    .regex(/^(?!.*(?:[-_ ]){2,})[a-zA-Z0-9_ -]+$/, {
-      message:
-        "Product variant name may only contain letters, numbers, spaces, hyphens, and underscores, without consecutive special characters.",
+    .max(100, {
+      message: "Product variant name cannot exceed 100 characters.",
     }),
+  // .regex(/^(?!.*(?:[-_ ]){2,})[a-zA-Z0-9_ -]+$/, {
+  //   message:
+  //     "Product variant name may only contain letters, numbers, spaces, hyphens, and underscores, without consecutive special characters.",
+  // })
   variantDescription: z
     .string({
       required_error: "Product variant description is mandatory.",

@@ -73,7 +73,7 @@ model Store {
   description String
   email String @unique
   phone String
-  url String
+  url String @unique
   logo String
   cover String
   status StoreStatus @default(PENDING)

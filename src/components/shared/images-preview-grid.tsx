@@ -39,8 +39,6 @@ function ImagesPreviewGrid({ images, onRemove, colors, setColors }: Props) {
     }
   }, [images, imagesLength]);
 
-  console.log("colorPalettes--->", colorPalettes);
-
   if (imagesLength === 0) {
     return (
       <div>

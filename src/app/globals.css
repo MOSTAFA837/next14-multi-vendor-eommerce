@@ -126,3 +126,12 @@
   grid-row: span 2;
   height: 266.66px;
 }
+
+.ReactTags__tagInputField {
+  border: 2px;
+  border-radius: 10px;
+  padding: 0.5rem;
+  width: 100%;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}

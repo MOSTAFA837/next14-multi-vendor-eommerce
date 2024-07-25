@@ -113,3 +113,16 @@ export const deleteSubCategory = async (subCategoryId: string) => {
   });
   return response;
 };
+
+export const getSubCategoriesForCategory = async (categoryId: string) => {
+  const subcategories = await db.subCategory.findMany({
+    where: {
+      categoryId,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
+
+  return subcategories;
+};

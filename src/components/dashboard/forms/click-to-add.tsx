@@ -21,6 +21,7 @@ interface ClickToAddInputsProps {
   initialDetail?: Detail; // Optional initial detail object
   header: string; // Header text for the component
   colorPicker?: boolean; // Is color picker needed
+  type: string;
 }
 
 // ClickToAddInputs component definition
@@ -30,6 +31,7 @@ const ClickToAddInputs: FC<ClickToAddInputsProps> = ({
   header,
   initialDetail = {}, // Default value for initialDetail is an empty object
   colorPicker,
+  type,
 }) => {
   // State to manage toggling color picker
   const [colorPickerIndex, setColorPickerIndex] = useState<number | null>(null);

@@ -117,3 +117,53 @@ export const upsertProduct = async (
     throw error;
   }
 };
+
+export const getStoreProducts = async (storeUrl: string) => {
+  const store = await db.store.findUnique({ where: { id: storeUrl } });
+  if (!store) throw new Error("Please provide a valid store URL.");
+
+  // retrive all products associated with the store
+  const products = await db.product.findMany({
+    where: {
+      storeId: store.id,
+    },
+    include: {
+      category: true,
+      subCategory: true,
+      store: {
+        select: {
+          id: true,
+          url: true,
+        },
+      },
+      variants: {
+        include: {
+          images: true,
+          colors: true,
+          sizes: true,
+        },
+      },
+    },
+  });
+
+  return products;
+};
+
+export const deleteProduct = async (productId: string) => {
+  const user = await currentUser();
+
+  if (!user) throw new Error("Unauthenticated.");
+
+  if (user.privateMetadata.role !== "SELLER") {
+    throw new Error(
+      "Unauthorized Access: Seller Privileges Required for Entry."
+    );
+  }
+
+  // Ensure product data is provided
+  if (!productId) throw new Error("Please provide product id.");
+
+  const response = await db.product.delete({ where: { id: productId } });
+
+  return response;
+};

@@ -24,11 +24,10 @@ import {
 } from "@tanstack/react-table";
 
 // Lucide icons
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 
 // Modal provider hook
 import { useModal } from "@/providers/modal-provider";
-import CustomModal from "../shared/custom-modal";
 import { useRouter } from "next/navigation";
 
 // Props interface for the table component
@@ -36,7 +35,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   filterValue: string;
-  actionButtonText?: React.ReactNode;
+  actionButtonText?: string;
   modalChildren?: React.ReactNode;
   searchPlaceholder: string;
   heading?: string;
@@ -93,6 +92,7 @@ export default function DataTable<TData, TValue>({
             router.push(`${createNew}`);
           }}
         >
+          <Plus size={15} />
           {actionButtonText}
         </Button>
         {/* )} */}

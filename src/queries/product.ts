@@ -167,3 +167,78 @@ export const deleteProduct = async (productId: string) => {
 
   return response;
 };
+
+export const getProductMainInfo = async (productId: string) => {
+  const product = await db.product.findUnique({
+    where: {
+      id: productId,
+    },
+  });
+
+  if (!product) return null;
+
+  return {
+    productId: product.id,
+    name: product.name,
+    description: product.description,
+    brand: product.brand,
+    categoryId: product.categoryId,
+    subCategoryId: product.subCategoryId,
+    storeId: product.storeId,
+  };
+};
+
+export const getProductVariant = async (
+  productId: string,
+  variantId: string
+) => {
+  // Retrieve product variant details from the database
+  const product = await db.product.findUnique({
+    where: {
+      id: productId,
+    },
+    include: {
+      category: true,
+      subCategory: true,
+      variants: {
+        where: {
+          id: variantId,
+        },
+        include: {
+          images: true,
+          colors: {
+            select: {
+              name: true,
+            },
+          },
+          sizes: {
+            select: {
+              size: true,
+              quantity: true,
+              price: true,
+              discount: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!product) return;
+  return {
+    productId: product?.id,
+    variantId: product?.variants[0].id,
+    name: product.name,
+    description: product?.description,
+    variantName: product.variants[0].variantName,
+    variantDescription: product.variants[0].variantDescription,
+    images: product.variants[0].images,
+    categoryId: product.categoryId,
+    subCategoryId: product.subCategoryId,
+    isSale: product.variants[0].isSale,
+    brand: product.brand,
+    sku: product.variants[0].sku,
+    colors: product.variants[0].colors,
+    sizes: product.variants[0].sizes,
+    keywords: product.variants[0].keywords.split(","),
+  };
+};

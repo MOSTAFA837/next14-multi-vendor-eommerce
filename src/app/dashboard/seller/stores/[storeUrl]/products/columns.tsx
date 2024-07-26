@@ -59,19 +59,19 @@ export const columns: ColumnDef<StoreProductType>[] = [
           <div className="relative flex flex-wrap gap-2">
             {row.original.variants.map((variant) => (
               <div key={variant.id} className="flex flex-col gap-y-2 group">
-                <div className="relative cursor-pointer">
+                <div className="relative cursor-pointer w-60">
                   <Image
                     src={variant.images[0].url}
                     alt={`${variant.variantName} image`}
                     width={1000}
                     height={1000}
-                    className="min-w-60 max-w-60 h-60 rounded-sm object-cover shadow-2xl"
+                    className="min-w-60 max-w-60 h-60 w-60 rounded-sm object-cover shadow-2xl"
                   />
                   <Link
                     href={`/dashboard/seller/stores/${row.original.store.url}/products/${row.original.id}/variants/${variant.id}`}
                   >
                     <div className="w-full h-full text-lg absolute top-0 left-0 bottom-0 right-0 z-0 rounded-sm bg-black/40 transition-all duration-150 hidden group-hover:block">
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white flex gap-3">
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white flex ">
                         <FilePenLine /> Edit
                       </div>
                     </div>
@@ -94,7 +94,7 @@ export const columns: ColumnDef<StoreProductType>[] = [
                         {variant.variantName}
                       </h1>
                       {/* Sizes */}
-                      <div className="flex flex-wrap gap-2 max-w-72 mt-1">
+                      <div className="flex flex-wrap gap-2 max-w-60 mt-1">
                         {variant.sizes.map((size) => (
                           <span
                             key={size.size}

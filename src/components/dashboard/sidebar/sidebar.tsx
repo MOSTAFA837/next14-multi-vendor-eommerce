@@ -1,4 +1,3 @@
-import { currentUser } from "@clerk/nextjs/server";
 import {
   SellerDashboardSidebarOptions,
   adminDashboardSidebarOptions,
@@ -20,8 +19,6 @@ export default async function Sidebar({
   isMobile,
   stores,
 }: SidebarProps) {
-  const user = await currentUser();
-
   return (
     <div
       className={cn(

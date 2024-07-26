@@ -44,36 +44,36 @@ export const SellerDashboardSidebarOptions: DashboardSidebarMenuInterface[] = [
   {
     label: "Dashboard",
     icon: "/assets/icons/dashboard.svg",
-    link: "/dashboard/seller",
+    link: "",
   },
   {
     label: "Products",
     icon: "/assets/icons/products.svg",
-    link: "/dashboard/seller/stores/products",
+    link: "/products",
   },
   {
     label: "Orders",
     icon: "/assets/icons/order.svg",
-    link: "/dashboard/seller/stores/orders",
+    link: "/orders",
   },
   {
     label: "Inventory",
     icon: "/assets/icons/inventory.svg",
-    link: "/dashboard/seller/stores/inventory",
+    link: "/inventory",
   },
   {
     label: "Coupons",
     icon: "/assets/icons/coupon.svg",
-    link: "/dashboard/seller/stores/coupons",
+    link: "/coupons",
   },
   {
     label: "Shipping",
     icon: "/assets/icons/shipping.svg",
-    link: "/dashboard/seller/stores/shipping",
+    link: "/shipping",
   },
   {
     label: "Settings",
     icon: "/assets/icons/settings.svg",
-    link: "/dashboard/seller/stores/settings",
+    link: "/settings",
   },
 ];

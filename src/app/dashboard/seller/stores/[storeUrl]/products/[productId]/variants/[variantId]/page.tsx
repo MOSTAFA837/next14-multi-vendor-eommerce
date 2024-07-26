@@ -1,14 +1,26 @@
-import { getAllCategories } from "@/queries/category";
-import React from "react";
+import ProductDetails from "@/components/dashboard/forms/product-details";
 
-async function ProductVariantPage({
+// Queries
+import { getAllCategories } from "@/queries/category";
+import { getProductVariant } from "@/queries/product";
+
+export default async function ProductVariantPage({
   params,
 }: {
   params: { storeUrl: string; productId: string; variantId: string };
 }) {
   const categories = await getAllCategories();
+  const { productId, variantId, storeUrl } = params;
+  const productDetails = await getProductVariant(productId, variantId);
+  if (!productDetails) return;
 
-  return <div>ProductVariantPage</div>;
+  return (
+    <div>
+      <ProductDetails
+        categories={categories}
+        storeUrl={storeUrl}
+        data={productDetails}
+      />
+    </div>
+  );
 }
-
-export default ProductVariantPage;

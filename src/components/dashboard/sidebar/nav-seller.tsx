@@ -1,16 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 
 import { icons } from "@/constants/icons";
 
@@ -31,8 +21,13 @@ export default function SidebarNavSeller({
 
   const router = useRouter();
 
+  console.log(
+    pathname ===
+      `/dashboard/seller/stores/ae779267-8aad-43fc-9570-bdb6ee989b22/products`
+  );
+
   const onClick = (href: string) => {
-    router.push(href);
+    router.push(`/dashboard/seller/stores/${activeStore}/${href}`);
   };
 
   return (
@@ -49,8 +44,12 @@ export default function SidebarNavSeller({
             onClick={() => onClick(link.link)}
             className={cn(
               "w-full font-normal justify-start gap-3 dark:text-gray-300 py-8 mb-1 hover:bg-gray-300 hover:text-white dark:hover:bg-[#1e293b]",
-              pathname === link.link &&
-                "bgGradient dark:bg-[#1e293b] text-white"
+              pathname.includes(link.link) &&
+                link.link !== "" &&
+                "bgGradient dark:bg-[#1e293b] text-white bg-red-900",
+              pathname === `/dashboard/seller/stores/${activeStore}` &&
+                link.link === "" &&
+                "bgGradient dark:bg-[#1e293b] text-white bg-red-900"
             )}
             variant="ghost"
           >
@@ -59,7 +58,12 @@ export default function SidebarNavSeller({
               width={35}
               height={35}
               alt=""
-              className={cn("dark:invert", pathname === link.link && "invert")}
+              className={cn("dark:invert", {
+                invert:
+                  (pathname.includes(link.link) && link.link !== "") ||
+                  (pathname === `/dashboard/seller/stores/${activeStore}` &&
+                    link.link === ""),
+              })}
             />
 
             <span className=" font-bold text-lg">{link.label}</span>

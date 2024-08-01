@@ -21,11 +21,6 @@ export default function SidebarNavSeller({
 
   const router = useRouter();
 
-  console.log(
-    pathname ===
-      `/dashboard/seller/stores/ae779267-8aad-43fc-9570-bdb6ee989b22/products`
-  );
-
   const onClick = (href: string) => {
     router.push(`/dashboard/seller/stores/${activeStore}/${href}`);
   };

@@ -82,7 +82,6 @@ const SubCategoryDetails: FC<SubCategoryDetailsProps> = ({
   const isLoading = form.formState.isSubmitting;
 
   const formData = form.watch();
-  console.log("formData", formData);
 
   // Reset form values when data changes
   useEffect(() => {

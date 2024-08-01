@@ -203,7 +203,7 @@ export const ProductFormSchema = z.object({
   images: z
     .object({ url: z.string() })
     .array()
-    .min(3, "Please upload at least 3 images for the product.")
+    .min(1, "Please upload at least 1 image for the product.")
     .max(6, "You can upload up to 6 images for the product."),
   categoryId: z
     .string({
@@ -246,8 +246,8 @@ export const ProductFormSchema = z.object({
       invalid_type_error: "Keywords must be valid strings.",
     })
     .array()
-    .min(5, {
-      message: "Please provide at least 5 keywords.",
+    .min(3, {
+      message: "Please provide at least 3 keywords.",
     })
     .max(10, {
       message: "You can provide up to 10 keywords.",

@@ -15,12 +15,7 @@ export default async function AdminCategoriesPage() {
       <h1 className=" text-4xl font-bold">Categories ({categories.length})</h1>
 
       <DataTable
-        actionButtonText={
-          <>
-            <Plus size={15} />
-            Create category
-          </>
-        }
+        actionButtonText="Create category"
         createNew="/dashboard/admin/categories/new"
         modalChildren={<CategoryDetails />}
         filterValue="name"

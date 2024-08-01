@@ -282,13 +282,13 @@ const ProductDetails: FC<ProductDetailsProps> = ({
                 />
                 {/* Colors */}
                 <div className="w-full flex flex-col gap-y-3 xl:pl-5">
-                  <ClickToAddInputs
+                  {/* <ClickToAddInputs
                     details={data?.colors || colors}
                     setDetails={setColors}
                     initialDetail={{ color: "" }}
                     header="Colors"
                     colorPicker
-                  />
+                  /> */}
                   {errors.colors && (
                     <span className="text-sm font-medium text-destructive">
                       {errors.colors.message}
@@ -497,7 +497,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({
               </div>
               {/* Sizes*/}
               <div className="w-full flex flex-col gap-y-3">
-                <ClickToAddInputs
+                {/* <ClickToAddInputs
                   details={sizes}
                   setDetails={setSizes}
                   initialDetail={{
@@ -507,7 +507,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({
                     discount: 0,
                   }}
                   header="Sizes,  Quantities,  Prices,  Discounts"
-                />
+                /> */}
                 {errors.sizes && (
                   <span className="text-sm font-medium text-destructive">
                     {errors.sizes.message}

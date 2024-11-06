@@ -78,12 +78,15 @@ model Store {
   cover String
   status StoreStatus @default(PENDING)
   averageRating Float @default(0)
-  featured Boolean @default(false)
-  returnPolicy String?
-  defaultShippingService String?
-  defaultShippingFees    Float?
-  defaultDeliveryTimeMin Int?
-  defaultDeliveryTimeMax Int?
+  featured                            Boolean     @default(false)
+  returnPolicy                        String      @default("Return in 30 days.")
+  defaultShippingService              String      @default("International Delivery")
+  defaultShippingFeePerItem           Float       @default(0)
+  defaultShippingFeeForAdditionalItem Float       @default(0)
+  defaultShippingFeePerKg             Float       @default(0)
+  defaultShippingFeeFixed             Float       @default(0)
+  defaultDeliveryTimeMin              Int         @default(7)
+  defaultDeliveryTimeMax              Int         @default(31)
 
   userId String
   user User @relation("UserStores", fields: [userId], references: [id])
@@ -115,12 +118,16 @@ model Product {
   subCategoryId String
   subCategory SubCategory @relation("SubCategoryToProduct", fields: [subCategoryId], references: [id])
 
+  offerTagId String
+  offerTag OfferTag @relation("OfferTagToProduct", fields: [offerTagId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
   @@index([storeId])
   @@index([categoryId])
   @@index([subCategoryId])
+  @@index([offerTagId])
 }
 
 model ProductVariant {
@@ -186,4 +193,15 @@ model Color {
   updatedAt DateTime @default(now()) @updatedAt
 
   @@index([productVariantId])
+}
+
+model OfferTag {
+  id String @id @default(uuid())
+  name String
+  url String
+
+  products Product[] @relation("OfferTagToProduct")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }

@@ -1,22 +1,28 @@
+import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
+import { User } from "@prisma/client";
 import { redirect } from "next/navigation";
-import React from "react";
 
 export default async function DashboardPage() {
-  const user = await currentUser();
+  const clerk = await currentUser();
 
-  // If user role is not defined or is "USER", redirect to the home page
-  if (!user?.privateMetadata?.role || user?.privateMetadata.role === "USER") {
-    redirect("/");
+  if (!clerk) return null;
+
+  const user = await db.user.findUnique({
+    where: {
+      id: clerk?.id,
+    },
+  });
+
+  if (user?.role === "ADMIN") {
+    return redirect("/dashboard/admin");
   }
 
-  // If user role is "ADMIN", redirect to the admin dashboard
-  if (user.privateMetadata.role === "ADMIN") {
-    redirect("/dashboard/admin");
+  if (!user?.role || user?.role === "USER") {
+    return redirect("/");
   }
 
-  // If user role is "SELLER", redirect to the seller dashboard
-  if (user.privateMetadata.role === "SELLER") {
-    redirect("/dashboard/seller");
+  if (user.role === "SELLER") {
+    return redirect("/dashboard/seller");
   }
 }

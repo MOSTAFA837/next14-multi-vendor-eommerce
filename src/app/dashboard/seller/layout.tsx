@@ -1,5 +1,4 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { privateRoute } from "@/lib/privateRoute";
 import React, { ReactNode } from "react";
 
 export default async function SellerDashboardLayout({
@@ -7,9 +6,7 @@ export default async function SellerDashboardLayout({
 }: {
   children: ReactNode;
 }) {
-  const user = await currentUser();
-
-  if (user?.privateMetadata.role !== "SELLER") redirect("/");
+  await privateRoute("SELLER");
 
   return <div>{children}</div>;
 }

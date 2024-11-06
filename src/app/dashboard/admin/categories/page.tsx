@@ -10,7 +10,7 @@ export default async function AdminCategoriesPage() {
 
   return (
     <div>
-      <h1 className=" text-4xl font-bold">Categories ({categories.length})</h1>
+      <h1 className="text-4xl font-bold">Categories ({categories.length})</h1>
 
       <DataTable
         actionButtonText=""
